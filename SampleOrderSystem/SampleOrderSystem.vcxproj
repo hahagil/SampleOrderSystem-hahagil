@@ -89,6 +89,10 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Repositories\SampleRepository.cpp" />
     <ClCompile Include="Repositories\OrderRepository.cpp" />
+    <ClCompile Include="Controllers\SampleController.cpp" />
+    <ClCompile Include="Controllers\OrderController.cpp" />
+    <ClCompile Include="Controllers\ProductionController.cpp" />
+    <ClCompile Include="Controllers\ShipmentController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Models\OrderStatus.h" />
@@ -98,6 +102,10 @@
     <ClInclude Include="Repositories\JsonUtil.h" />
     <ClInclude Include="Repositories\SampleRepository.h" />
     <ClInclude Include="Repositories\OrderRepository.h" />
+    <ClInclude Include="Controllers\SampleController.h" />
+    <ClInclude Include="Controllers\OrderController.h" />
+    <ClInclude Include="Controllers\ProductionController.h" />
+    <ClInclude Include="Controllers\ShipmentController.h" />
   </ItemGroup>
 
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
