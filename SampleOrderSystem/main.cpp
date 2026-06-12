@@ -5,6 +5,21 @@
 #include "Controllers/ProductionController.h"
 #include "Controllers/ShipmentController.h"
 #include "Views/MainMenuView.h"
+#include <Windows.h>
+#include <cstdlib>
+
+// Pointer used by the console control handler (set before registering).
+static Controller::ProductionController* g_prodCtrl = nullptr;
+
+// Handles Ctrl+C and console-window close events.
+// Stops the production worker cleanly, then exits the process.
+static BOOL WINAPI consoleCtrlHandler(DWORD event) {
+    if (event == CTRL_C_EVENT || event == CTRL_CLOSE_EVENT) {
+        if (g_prodCtrl) g_prodCtrl->stop();
+        std::exit(0);
+    }
+    return FALSE;
+}
 
 int main() {
     Repository::SampleRepository sampleRepo("samples.json");
@@ -15,9 +30,12 @@ int main() {
     Controller::OrderController      orderCtrl(orderRepo, sampleCtrl, prodCtrl);
     Controller::ShipmentController   shipCtrl(orderRepo, sampleCtrl);
 
+    g_prodCtrl = &prodCtrl;
+    SetConsoleCtrlHandler(consoleCtrlHandler, TRUE);
+
     prodCtrl.start();
 
-    // PRODUCING 상태 주문 복구 (앱 재시작 시)
+    // Recover PRODUCING orders persisted from a previous session.
     for (auto& o : orderCtrl.listByStatus(Model::OrderStatus::PRODUCING))
         prodCtrl.enqueue(o);
 
