@@ -87,7 +87,19 @@
   </ItemDefinitionGroup>
 
   <ItemGroup>
-    <ClCompile Include="Tests\placeholder_test.cpp" />
+    <ClCompile Include="Tests\FormulaTest.cpp" />
+    <ClCompile Include="Tests\OrderControllerTest.cpp" />
+    <ClCompile Include="Tests\ProductionControllerTest.cpp" />
+    <ClCompile Include="..\SampleOrderSystem\Repositories\SampleRepository.cpp" />
+    <ClCompile Include="..\SampleOrderSystem\Repositories\OrderRepository.cpp" />
+    <ClCompile Include="..\SampleOrderSystem\Controllers\SampleController.cpp" />
+    <ClCompile Include="..\SampleOrderSystem\Controllers\OrderController.cpp" />
+    <ClCompile Include="..\SampleOrderSystem\Controllers\ProductionController.cpp" />
+    <ClCompile Include="..\SampleOrderSystem\Controllers\ShipmentController.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Stubs\InMemorySampleRepository.h" />
+    <ClInclude Include="Stubs\InMemoryOrderRepository.h" />
   </ItemGroup>
 
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
