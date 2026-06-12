@@ -2,48 +2,52 @@
 #include <ctime>
 #include "Repositories/SampleRepository.h"
 #include "Repositories/OrderRepository.h"
+#include "Controllers/SampleController.h"
+#include "Controllers/OrderController.h"
+#include "Controllers/ProductionController.h"
+#include "Controllers/ShipmentController.h"
 
 int main() {
-    std::cout << "=== SampleOrderSystem — Phase 1 Repository Round-trip ===\n\n";
+    std::cout << "=== SampleOrderSystem — Phase 3 Controller Scenario ===\n\n";
 
-    // ── Write ─────────────────────────────────────────────────────────────────
-    {
-        Repository::SampleRepository sampleRepo("samples.json");
-        Repository::OrderRepository  orderRepo("orders.json");
+    Repository::SampleRepository sampleRepo("samples.json");
+    Repository::OrderRepository  orderRepo("orders.json");
 
-        Model::Sample s1{"SMP-001", "Alpha Chip",  30, 0.92, 100};
-        Model::Sample s2{"SMP-002", "Beta Sensor", 15, 0.85,  50};
-        sampleRepo.add(s1);
-        sampleRepo.add(s2);
+    Controller::SampleController     sampleCtrl(sampleRepo);
+    Controller::ProductionController prodCtrl(orderRepo, sampleRepo);
+    Controller::OrderController      orderCtrl(orderRepo, sampleCtrl, prodCtrl);
+    Controller::ShipmentController   shipCtrl(orderRepo, sampleCtrl);
 
-        Model::Order o1{"ORD-0001", "SMP-001", 10, Model::OrderStatus::RESERVED,  std::time(nullptr)};
-        Model::Order o2{"ORD-0002", "SMP-002",  5, Model::OrderStatus::CONFIRMED, std::time(nullptr)};
-        orderRepo.add(o1);
-        orderRepo.add(o2);
+    // ── 샘플 등록 ─────────────────────────────────────────────────────────────
+    sampleCtrl.addSample({"SMP-001", "Alpha Chip",  30, 0.9, 100});
+    sampleCtrl.addSample({"SMP-002", "Beta Sensor", 15, 0.8,   5});
+    std::cout << "[Samples] " << sampleCtrl.listAll().size() << " registered\n";
 
-        std::cout << "[Write] samples=" << sampleRepo.findAll().size()
-                  << "  orders=" << orderRepo.findAll().size() << "\n";
-    }
+    // ── Path A: 재고 충분 → CONFIRMED ────────────────────────────────────────
+    auto id1 = orderCtrl.createOrder("SMP-001", 10);
+    orderCtrl.approve(id1);
+    auto o1 = orderRepo.findById(id1);
+    std::cout << "[Path A] " << id1 << " status=" << (int)o1->status
+              << " (expected CONFIRMED=2)\n";
 
-    // ── Reload (simulate restart) ──────────────────────────────────────────────
-    {
-        Repository::SampleRepository sampleRepo("samples.json");
-        Repository::OrderRepository  orderRepo("orders.json");
+    // ── Path B: 재고 부족 → PRODUCING ────────────────────────────────────────
+    auto id2 = orderCtrl.createOrder("SMP-002", 20); // stock=5 < qty=20
+    prodCtrl.start();
+    orderCtrl.approve(id2);
+    auto o2 = orderRepo.findById(id2);
+    std::cout << "[Path B] " << id2 << " status=" << (int)o2->status
+              << " (expected PRODUCING=1)\n";
+    std::cout << "         (production running in background — skip wait)\n\n";
 
-        auto samples = sampleRepo.findAll();
-        auto orders  = orderRepo.findAll();
+    prodCtrl.stop();
 
-        std::cout << "[Reload] samples=" << samples.size()
-                  << "  orders=" << orders.size() << "\n\n";
+    // ── Path C: REJECTED ──────────────────────────────────────────────────────
+    auto id3 = orderCtrl.createOrder("SMP-001", 5);
+    orderCtrl.reject(id3);
+    auto o3 = orderRepo.findById(id3);
+    std::cout << "[Path C] " << id3 << " status=" << (int)o3->status
+              << " (expected REJECTED=4)\n";
 
-        for (const auto& s : samples)
-            std::cout << "  Sample  " << s.sampleId << "  " << s.name
-                      << "  stock=" << s.stock << "\n";
-        for (const auto& o : orders)
-            std::cout << "  Order   " << o.orderId << "  sampleId=" << o.sampleId
-                      << "  qty=" << o.quantity << "\n";
-    }
-
-    std::cout << "\nRound-trip OK.\n";
+    std::cout << "\nController scenario OK.\n";
     return 0;
 }
