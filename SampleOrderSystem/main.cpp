@@ -22,6 +22,9 @@ static BOOL WINAPI consoleCtrlHandler(DWORD event) {
 }
 
 int main() {
+    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
+
     Repository::SampleRepository sampleRepo("samples.json");
     Repository::OrderRepository  orderRepo("orders.json");
 
