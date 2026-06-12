@@ -87,6 +87,17 @@
 
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Repositories\SampleRepository.cpp" />
+    <ClCompile Include="Repositories\OrderRepository.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Models\OrderStatus.h" />
+    <ClInclude Include="Models\Sample.h" />
+    <ClInclude Include="Models\Order.h" />
+    <ClInclude Include="Repositories\IRepository.h" />
+    <ClInclude Include="Repositories\JsonUtil.h" />
+    <ClInclude Include="Repositories\SampleRepository.h" />
+    <ClInclude Include="Repositories\OrderRepository.h" />
   </ItemGroup>
 
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
