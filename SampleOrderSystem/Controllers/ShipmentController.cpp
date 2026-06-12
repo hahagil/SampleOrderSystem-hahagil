@@ -7,11 +7,19 @@ ShipmentController::ShipmentController(Repository::IRepository<Model::Order>& or
     : m_orderRepo(orderRepo), m_sampleCtrl(sampleCtrl) {}
 
 std::vector<Model::Order> ShipmentController::listConfirmed() const {
-    return {}; // stub
+    std::vector<Model::Order> result;
+    for (const auto& o : m_orderRepo.findAll())
+        if (o.status == Model::OrderStatus::CONFIRMED) result.push_back(o);
+    return result;
 }
 
 bool ShipmentController::ship(const std::string& orderId) {
-    return false; // stub
+    auto o = m_orderRepo.findById(orderId);
+    if (!o || o->status != Model::OrderStatus::CONFIRMED) return false;
+    m_sampleCtrl.reduceStock(o->sampleId, o->quantity);
+    o->status = Model::OrderStatus::RELEASE;
+    m_orderRepo.update(*o);
+    return true;
 }
 
 } // namespace Controller
