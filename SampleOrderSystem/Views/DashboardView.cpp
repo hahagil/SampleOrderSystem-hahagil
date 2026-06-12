@@ -48,14 +48,19 @@ void DashboardView::run() {
               << std::setw(12) << "샘플ID"
               << std::setw(18) << "이름"
               << std::setw(10) << "현재재고"
-              << "출고누계\n";
-    std::cout << std::string(48, '-') << "\n";
-    for (const auto& s : samples)
+              << std::setw(10) << "출고누계"
+              << "입고누계\n";
+    std::cout << std::string(58, '-') << "\n";
+    for (const auto& s : samples) {
+        int outbound = shipped[s.sampleId];
+        int inbound  = s.stock + outbound;
         std::cout << std::left
                   << std::setw(12) << s.sampleId
                   << std::setw(18) << s.name
                   << std::setw(10) << s.stock
-                  << shipped[s.sampleId] << "\n";
+                  << std::setw(10) << outbound
+                  << inbound << "\n";
+    }
 
     MainMenuView::pause();
 }

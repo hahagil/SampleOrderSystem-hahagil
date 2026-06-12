@@ -7,6 +7,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SampleOrderSystem", "Sample
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SampleOrderSystemTest", "SampleOrderSystemTest\SampleOrderSystemTest.vcxproj", "{B2C3D4E5-F6A7-8901-BCDE-F01234567891}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DataMonitor", "DataMonitor\DataMonitor.vcxproj", "{C3D4E5F6-A7B8-9012-CDEF-012345678901}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DummyDataGenerator", "DummyDataGenerator\DummyDataGenerator.vcxproj", "{D4E5F6A7-B8C9-0123-DEF0-123456789012}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,5 +25,13 @@ Global
 		{B2C3D4E5-F6A7-8901-BCDE-F01234567891}.Debug|x64.Build.0 = Debug|x64
 		{B2C3D4E5-F6A7-8901-BCDE-F01234567891}.Release|x64.ActiveCfg = Release|x64
 		{B2C3D4E5-F6A7-8901-BCDE-F01234567891}.Release|x64.Build.0 = Release|x64
+		{C3D4E5F6-A7B8-9012-CDEF-012345678901}.Debug|x64.ActiveCfg = Debug|x64
+		{C3D4E5F6-A7B8-9012-CDEF-012345678901}.Debug|x64.Build.0 = Debug|x64
+		{C3D4E5F6-A7B8-9012-CDEF-012345678901}.Release|x64.ActiveCfg = Release|x64
+		{C3D4E5F6-A7B8-9012-CDEF-012345678901}.Release|x64.Build.0 = Release|x64
+		{D4E5F6A7-B8C9-0123-DEF0-123456789012}.Debug|x64.ActiveCfg = Debug|x64
+		{D4E5F6A7-B8C9-0123-DEF0-123456789012}.Debug|x64.Build.0 = Debug|x64
+		{D4E5F6A7-B8C9-0123-DEF0-123456789012}.Release|x64.ActiveCfg = Release|x64
+		{D4E5F6A7-B8C9-0123-DEF0-123456789012}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 EndGlobal

@@ -205,10 +205,11 @@ Sample.stock 필드를 직접 사용한다.
 ```
 
 ### Phase 6 — CleanCode + 마무리
-작업: 중복 제거, 네이밍 통일, DoD 체크리스트 점검
+작업: D-02 입고누계 추가, DataMonitor / DummyDataGenerator 별도 프로젝트 신규 추가, DoD 체크리스트 전체 통과
 ```
-[refactor] Remove duplicated code and unify naming across layers
-[docs] Update PLAN.md with final implementation notes            ← ✅ (PRD DoD 전체 통과)
+[feat] Add DataMonitor and DummyDataGenerator as standalone projects
+[refactor] Fix DashboardView D-02: add inbound total column
+[docs] Update PLAN.md and mark all phases done                   ← ✅ (PRD DoD 전체 통과)
 ```
 
 ---

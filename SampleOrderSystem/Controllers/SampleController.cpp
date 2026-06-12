@@ -29,6 +29,15 @@ bool SampleController::reduceStock(const std::string& sampleId, int qty) {
     return m_repo.update(*s);
 }
 
+std::vector<Model::Sample> SampleController::search(const std::string& keyword) const {
+    std::vector<Model::Sample> result;
+    for (const auto& s : m_repo.findAll())
+        if (s.sampleId.find(keyword) != std::string::npos ||
+            s.name.find(keyword) != std::string::npos)
+            result.push_back(s);
+    return result;
+}
+
 bool SampleController::addStock(const std::string& sampleId, int qty) {
     auto s = m_repo.findById(sampleId);
     if (!s) return false;

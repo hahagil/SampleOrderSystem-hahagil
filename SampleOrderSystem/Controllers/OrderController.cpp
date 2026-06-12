@@ -27,6 +27,10 @@ std::string OrderController::createOrder(const std::string& sampleId, int quanti
     return o.orderId;
 }
 
+std::optional<Model::Order> OrderController::findById(const std::string& orderId) const {
+    return m_orderRepo.findById(orderId);
+}
+
 bool OrderController::approve(const std::string& orderId) {
     std::lock_guard<std::mutex> lock(m_approveMutex);
 

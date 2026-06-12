@@ -2,6 +2,7 @@
 #include "../Repositories/IRepository.h"
 #include "../Models/Order.h"
 #include "../Models/Sample.h"
+#include <optional>
 #include "SampleController.h"
 #include "ProductionController.h"
 #include <string>
@@ -16,7 +17,8 @@ public:
                     SampleController&                      sampleCtrl,
                     ProductionController&                  prodCtrl);
 
-    std::string createOrder(const std::string& sampleId, int quantity);
+    std::string                  createOrder(const std::string& sampleId, int quantity);
+    std::optional<Model::Order>  findById(const std::string& orderId) const;
     bool        approve(const std::string& orderId);
     bool        reject(const std::string& orderId);
     std::vector<Model::Order> listByStatus(Model::OrderStatus status) const;

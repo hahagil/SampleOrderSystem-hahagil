@@ -17,6 +17,7 @@ public:
     std::vector<Model::Sample>    listAll() const;
     bool                          reduceStock(const std::string& sampleId, int qty);
     bool                          addStock(const std::string& sampleId, int qty);
+    std::vector<Model::Sample>    search(const std::string& keyword) const;
 
 private:
     Repository::IRepository<Model::Sample>& m_repo;
