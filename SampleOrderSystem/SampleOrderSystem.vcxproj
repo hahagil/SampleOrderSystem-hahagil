@@ -93,6 +93,12 @@
     <ClCompile Include="Controllers\OrderController.cpp" />
     <ClCompile Include="Controllers\ProductionController.cpp" />
     <ClCompile Include="Controllers\ShipmentController.cpp" />
+    <ClCompile Include="Views\MainMenuView.cpp" />
+    <ClCompile Include="Views\SampleView.cpp" />
+    <ClCompile Include="Views\OrderView.cpp" />
+    <ClCompile Include="Views\DashboardView.cpp" />
+    <ClCompile Include="Views\ProductionView.cpp" />
+    <ClCompile Include="Views\ShipmentView.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Models\OrderStatus.h" />
@@ -106,6 +112,12 @@
     <ClInclude Include="Controllers\OrderController.h" />
     <ClInclude Include="Controllers\ProductionController.h" />
     <ClInclude Include="Controllers\ShipmentController.h" />
+    <ClInclude Include="Views\MainMenuView.h" />
+    <ClInclude Include="Views\SampleView.h" />
+    <ClInclude Include="Views\OrderView.h" />
+    <ClInclude Include="Views\DashboardView.h" />
+    <ClInclude Include="Views\ProductionView.h" />
+    <ClInclude Include="Views\ShipmentView.h" />
   </ItemGroup>
 
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
